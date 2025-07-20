@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishiSetu - Empowering Farmers with Technology</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Navigation Link Styles */
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #16a34a;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Animation for menu items */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu-item {
+            animation: fadeIn 0.3s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Delays for each menu item */
+        .mobile-menu-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mobile-menu-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .mobile-menu-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .mobile-menu-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .mobile-menu-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .mobile-menu-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .mobile-menu-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+    <!-- Header/Navigation Bar -->
+    <header class="header bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center text-2xl font-bold text-green-600">
+                <i class="fas fa-tractor mr-2"></i>
+                <span>KrishiSetu</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="about.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i> About
+                </a>
+                <a href="services.html" class="nav-link text-green-600 transition-colors">
+                    <i class="fas fa-cogs mr-2"></i> Services
+                </a>
+                <a href="blog.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-blog mr-2"></i> Blog
+                </a>
+                <a href="products.html" class="nav-link hover:text-green-600 font-semibold">
+                    <i class="fas fa-seedling mr-2"></i> Products
+                </a>
+                <a href="contact.html" class="nav-link hover:text-green-600 font-medium">
+                    <i class="fas fa-envelope mr-2"></i> Contact
+                </a>
+                <a href="login.html"
+                    class="bg-green-600 text-white px-4 py-2 rounded-full font-medium hover:bg-green-700 transition">
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Full Screen Mobile Menu -->
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-6 right-6 text-gray-600">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+            <a href="index.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-home mr-3"></i> Home
+            </a>
+            <a href="about.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-info-circle mr-3"></i> About
+            </a>
+            <a href="services.html" class="mobile-nav-link text-green-600 transition mobile-menu-item">
+                <i class="fas fa-cogs mr-3"></i> Services
+            </a>
+            <a href="blog.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-blog mr-3"></i> Blog
+            </a>
+            <a href="products.html" class="mobile-nav-link hover:text-green-600 font-semibold transition">
+                <i class="fas fa-seedling mr-3"></i> Products
+            </a>
+            <a href="contact.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-envelope mr-3"></i> Contact
+            </a>
+            <a href="login.html"
+                class="mt-8 bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition text-lg mobile-menu-item">
+                Get Started
+            </a>
+        </div>
+    </div>
+    </header>
+
+    <main>
+        <!-- Services Hero Section -->
+        <section
+            class="relative bg-gradient-to-r from-green-500 to-green-700 text-white py-20 md:py-28 overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20">
+                </div>
+            </div>
+            <div class="container mx-auto px-6 md:px-12 z-10 relative">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up">
+                        From Soil to Sale: <span class="text-yellow-300">Comprehensive Farming Solutions</span>
+                    </h1>
+                    <p class="text-xl mb-8 opacity-90 animate-fade-in-up delay-100">
+                        Empowering Indian farmers with end-to-end services that boost productivity, reduce costs, and
+                        maximize profits.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up delay-200">
+                        <a href="#services" class="btn-primary text-white font-bold py-3 px-8 rounded-full">
+                            Explore Services <i class="fas fa-arrow-down ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Navigation -->
+        <section class="py-8 bg-white sticky top-16 z-40 shadow-sm">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <a href="#advisory"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Advisory
+                        & Education</a>
+                    <a href="#equipment"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Equipment
+                        Sharing</a>
+                    <a href="#monitoring"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Smart
+                        Monitoring</a>
+                    <a href="#marketplace"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Direct
+                        Marketplace</a>
+                    <a href="#waste"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Waste
+                        to Wealth</a>
+                    <a href="#training"
+                        class="service-tab px-4 py-2 rounded-full border border-green-500 text-green-600 hover:bg-green-100">Training
+                        & Loyalty</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Services Section -->
+        <section id="services" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-12">
+                <!-- Advisory & Education -->
+                <div id="advisory" class="mb-20 bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Smart Advisory & Education</h2>
+                            <p class="mb-6 opacity-90">Your AI-powered farming guide providing personalized crop
+                                recommendations and expert advice.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Premium Features</h4>
+                                    <p>₹99-499/month</p>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Get Started <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Free Tier</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Weather alerts via SMS/app</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Basic crop tips</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Market price updates</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Premium Features</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>AI-generated crop plans</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>24/7 expert helpline (local language)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Govt. scheme integration</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Farmer Impact</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-arrow-up text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">+40% yield</p>
+                                        <p>with optimized planting cycles</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment-as-a-Service -->
+                <div id="equipment" class="mb-20 bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-tractor"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Equipment-as-a-Service</h2>
+                            <p class="mb-6 opacity-90">Access high-tech farming equipment without the heavy investment
+                                through our flexible rental model.</p>
+                            <div class="mb-6">
+                                <h4 class="font-bold mb-2">Popular Equipment</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-green-700 px-3 py-1 rounded-full">Drones (₹900/day)</span>
+                                    <span class="bg-green-700 px-3 py-1 rounded-full">Soil Sensors (₹200/week)</span>
+                                    <span class="bg-green-700 px-3 py-1 rounded-full">Solar Pumps (₹1,500/month)</span>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Rent Equipment <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Value-Added Services</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Damage insurance (5% fee)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>UPI-based "pay-per-use"</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Village cluster sharing</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Benefits</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>No large upfront costs</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Maintenance included</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Training provided</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Farmer Impact</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-rupee-sign text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">Access ₹5 lakh tech</p>
+                                        <p>for less than ₹2,000/season</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Monitoring -->
+                <div id="monitoring" class="mb-20 bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Smart Monitoring</h2>
+                            <p class="mb-6 opacity-90">Your farm's digital twin providing real-time insights and
+                                predictive analytics.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Core Service</h4>
+                                    <p>Real-time alerts (₹1/SMS)</p>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Get Monitoring <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Core Features</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Soil moisture/pest alerts</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Drone health scans</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Harvest prediction reports</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Advanced Solutions</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Enterprise data insights</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Satellite data partnerships</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Predictive analytics (₹299/report)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Farmer Impact</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-tint text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">30% water savings</p>
+                                        <p>25% fewer crop losses</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Marketplace -->
+                <div id="marketplace" class="mb-20 bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Direct Sales Marketplace</h2>
+                            <p class="mb-6 opacity-90">Connect directly with buyers, eliminate middlemen, and get fair
+                                prices for your produce.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Transaction Fee</h4>
+                                    <p>3-7% commission</p>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Join Marketplace <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="mb-8">
+                                <h3 class="font-bold text-xl mb-4">How It Works</h3>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex-1 min-w-[200px] bg-green-50 p-4 rounded-lg">
+                                        <div class="text-green-600 text-2xl mb-2">1</div>
+                                        <p>Farmer lists quality-verified produce via app</p>
+                                    </div>
+                                    <div class="flex-1 min-w-[200px] bg-green-50 p-4 rounded-lg">
+                                        <div class="text-green-600 text-2xl mb-2">2</div>
+                                        <p>Buyers bid directly (retailers, exporters)</p>
+                                    </div>
+                                    <div class="flex-1 min-w-[200px] bg-green-50 p-4 rounded-lg">
+                                        <div class="text-green-600 text-2xl mb-2">3</div>
+                                        <p>We handle logistics (₹50-500/delivery)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Farmer Benefits</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Direct access to buyers</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Escrow payment protection</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Blockchain traceability</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Premium Features</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Early crop access (₹499/month)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Dynamic logistics pricing</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Bulk buyer discounts</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Farmer Impact</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">Earn 20-50% more</p>
+                                        <p>than traditional mandi prices</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Waste to Wealth -->
+                <div id="waste" class="mb-20 bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Waste to Wealth</h2>
+                            <p class="mb-6 opacity-90">Turn agricultural and kitchen waste into valuable resources and
+                                additional income.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Compost Sales</h4>
+                                    <p>"AgriSolve Organic Gold" (₹15/kg)</p>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Join Program <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Community Model</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Kitchen waste collection (₹10/household/month)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Local composting centers</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>CSR partnerships for infrastructure</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Revenue Streams</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Premium compost sales</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Carbon credit monetization</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>"Green Points" redeemable for seeds/tools</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Environmental Impact</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-leaf text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">1 ton waste = 400 kg fertilizer</p>
+                                        <p>Generating ₹8,000 profit per ton</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training & Loyalty -->
+                <div id="training" class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 bg-green-600 text-white p-8 md:p-12">
+                            <div class="text-5xl mb-6">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-4">Training & Loyalty</h2>
+                            <p class="mb-6 opacity-90">Gamify sustainable farming with rewards, certifications, and
+                                community recognition.</p>
+                            <div class="flex items-center mb-4">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Certification</h4>
+                                    <p>Sustainable Farmer badge (₹299)</p>
+                                </div>
+                            </div>
+                            <a href="#contact"
+                                class="inline-block mt-4 bg-white text-green-600 font-bold py-3 px-6 rounded-full">
+                                Join Program <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-3/5 p-8 md:p-12">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Programs</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Free workshops on organic farming</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Certified Sustainable Farmer program</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Corporate-sponsored training camps</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-xl">
+                                    <h3 class="font-bold text-green-600 mb-3">Rewards</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Free equipment rentals for top performers</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Gamified ads for partner points</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span>Leaderboards with corporate funding</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-green-50 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-600 mb-3">Impact Goals</h3>
+                                <div class="flex items-center">
+                                    <div class="bg-green-100 p-4 rounded-full mr-4">
+                                        <i class="fas fa-users text-green-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-xl">100,000+ farmers trained</p>
+                                        <p>by 2026 across India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Solutions -->
+        <section class="py-16 bg-gradient-to-br from-green-600 to-green-800 text-white">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="text-center mb-16">
+                    <span class="font-semibold opacity-90">PARTNER SOLUTIONS</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Integrated Services Across Stakeholders</h2>
+                    <div class="w-20 h-1 bg-white mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="partner-card rounded-2xl p-8 text-gray-800">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-user text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">For Farmers</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Micro-loans</h4>
+                                    <p class="text-sm">1% referral fee, instant ₹50,000 loans</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">"Verified Urea" Inputs</h4>
+                                    <p class="text-sm">IoT-tracked soil compatibility</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">GI-tagged Crop Clusters</h4>
+                                    <p class="text-sm">Premium pricing for specialty crops</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="partner-card rounded-2xl p-8 text-gray-800">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-building text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">For Businesses</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">API Access</h4>
+                                    <p class="text-sm">$0.01/API call for crop prediction</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Export Brokerage</h4>
+                                    <p class="text-sm">5% fee for GI-tagged produce exports</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Sponsored Training</h4>
+                                    <p class="text-sm">Branded farmer education programs</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="partner-card rounded-2xl p-8 text-gray-800">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-landmark text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">For Government</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">FPO Cluster Management</h4>
+                                    <p class="text-sm">Digital coordination of farmer groups</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Waste Management</h4>
+                                    <p class="text-sm">Urban-rural circular economy models</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Satellite Data Sharing</h4>
+                                    <p class="text-sm">Real-time agricultural monitoring</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="text-center mb-16">
+                    <span class="text-green-600 font-semibold">PROVEN IMPACT</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Transforming Agriculture Across India</h2>
+                    <p class="max-w-2xl mx-auto text-gray-600">Our comprehensive services deliver measurable results for
+                        farmers, communities, and the environment</p>
+                    <div class="w-20 h-1 bg-green-500 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="impact-card bg-white p-8 rounded-2xl shadow-md">
+                        <div class="text-green-600 text-4xl mb-4">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Economic Impact</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-rupee-sign text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">73% avg. service margin</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-wallet text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">₹1.47 Cr revenue</p>
+                                    <p>per 10,000 farmers annually</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-percent text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">55-75% gross margins</p>
+                                    <p>at scale operations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="impact-card bg-white p-8 rounded-2xl shadow-md">
+                        <div class="text-green-600 text-4xl mb-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Farmer Empowerment</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-arrow-up text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">30% avg. income increase</p>
+                                    <p>across our network</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-tractor text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">80% services free</p>
+                                    <p>at entry level</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-graduation-cap text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">50,000+ farmers trained</p>
+                                    <p>in sustainable practices</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="impact-card bg-white p-8 rounded-2xl shadow-md">
+                        <div class="text-green-600 text-4xl mb-4">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Environmental Benefits</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-tint text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">30% water conservation</p>
+                                    <p>through smart irrigation</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-recycle text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">5,000+ tons waste converted</p>
+                                    <p>to organic fertilizer annually</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-cloud text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-2xl">15% carbon footprint reduction</p>
+                                    <p>per participating farm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-white rounded-2xl p-8 shadow-md">
+                    <div class="md:flex items-center">
+                        <div class="md:w-1/2 mb-6 md:mb-0">
+                            <h3 class="text-2xl font-bold mb-4">Join India's Farming Revolution!</h3>
+                            <p class="mb-6">"KrishiSetu isn't just a platform - it's 1 million empowered farmers by
+                                2027."</p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="login.html" class="btn-primary text-white font-bold py-3 px-8 rounded-full">
+                                    For Farmers: Download App
+                                </a>
+                                <a href="contact.html"
+                                    class="bg-white text-green-600 border border-green-500 font-bold py-3 px-8 rounded-full">
+                                    For Partners: Contact Us
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 text-center">
+                            <p class="text-sm mb-4">Serving UP, Punjab & Maharashtra first</p>
+                            <a href="#" class="inline-block bg-green-600 text-white py-3 px-8 rounded-full font-bold">
+                                Visit KrishiSetu.com/demo <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            <div class="mt-4 text-xs opacity-75">
+                                <p>Certified by NABARD | Partnered with IIT Kanpur | CSR Approved</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- About Column -->
+                <div>
+                    <div class="flex items-center text-2xl font-bold mb-6">
+                        <i class="fas fa-tractor mr-2 text-green-500"></i>
+                        <span>KrishiSetu</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Empowering Indian farmers with technology, knowledge and market access for sustainable
+                        agriculture.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-green-500 transition-colors">Home</a>
+                        </li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-green-500 transition-colors">About
+                                Us</a></li>
+                        <li><a href="services.html"
+                                class="text-gray-400 hover:text-green-500 transition-colors">Services</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-green-500 transition-colors">Blog</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="text-gray-400 hover:text-green-500 transition-colors">Contact</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-green-500 transition-colors">FAQs</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Services Column -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Our Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#advisory" class="text-gray-400 hover:text-green-500 transition-colors">Advisory &
+                                Education</a></li>
+                        <li><a href="#equipment" class="text-gray-400 hover:text-green-500 transition-colors">Equipment
+                                Sharing</a></li>
+                        <li><a href="#monitoring" class="text-gray-400 hover:text-green-500 transition-colors">Smart
+                                Monitoring</a></li>
+                        <li><a href="#marketplace" class="text-gray-400 hover:text-green-500 transition-colors">Direct
+                                Marketplace</a></li>
+                        <li><a href="#waste" class="text-gray-400 hover:text-green-500 transition-colors">Waste to
+                                Wealth</a></li>
+                        <li><a href="#training" class="text-gray-400 hover:text-green-500 transition-colors">Training &
+                                Loyalty</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-green-500"></i>
+                            <span>KrishiSetu Headquarters, Agri-Tech Park, Pune, Maharashtra - 411057</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-green-500"></i>
+                            <span>Toll-free: 1800-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-green-500"></i>
+                            <span>info@krishisetu.in</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3 text-green-500"></i>
+                            <span>Mon-Sat: 9:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 KrishiSetu. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-green-500 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-green-500 text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-green-500 text-sm">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-6 right-6 bg-green-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-green-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close mobile menu
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Redirect "Get Started" to login if no account exists (example logic)
+        function checkAuth() {
+            const isLoggedIn = false; // Replace with actual auth check
+            if (!isLoggedIn) {
+                window.location.href = "login.html";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Service tab highlighting
+        const serviceTabs = document.querySelectorAll('.service-tab');
+        const serviceSections = document.querySelectorAll('[id^="advisory"], [id^="equipment"], [id^="monitoring"], [id^="marketplace"], [id^="waste"], [id^="training"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            serviceSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            serviceTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('href').substring(1) === current) {
+                    tab.classList.add('active');
+                }
+            });
+        });
+
+        // Service tab click
+        serviceTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = tab.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

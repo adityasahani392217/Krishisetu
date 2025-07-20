@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishiSetu - Empowering Farmers with Technology</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #16a34a;
+            --primary-hover: #15803d;
+            --text-color: #334155;
+            --light-bg: #f8fafc;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            font-size: 1.25rem;
+            width: 100%;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-item {
+            animation: fadeIn 0.3s ease-out forwards;
+            opacity: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply staggered delays for menu items */
+        .mobile-menu-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mobile-menu-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .mobile-menu-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .mobile-menu-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .mobile-menu-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .mobile-menu-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .mobile-menu-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        /* Product Cards */
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .cart-btn {
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Filter System */
+        .filter-overlay {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .filter-overlay.active {
+            left: 0;
+        }
+
+        .filter-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .filter-backdrop.active {
+            display: block;
+        }
+
+        .mobile-filter-btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+
+        .mobile-filter-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 767px) {
+
+            /* Layout adjustments */
+            .container {
+                padding: 0 1rem;
+            }
+
+            /* Hide desktop elements */
+            .desktop-only {
+                display: none !important;
+            }
+
+            /* Show mobile elements */
+            .mobile-only {
+                display: block !important;
+            }
+
+            /* Product grid */
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            /* Filter button */
+            .mobile-filter-container {
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 1rem;
+                margin: 1rem 0;
+            }
+
+            /* Hide desktop filters */
+            .filter-section {
+                display: none;
+            }
+
+            /* Full width products on mobile */
+            .products-grid {
+                width: 100% !important;
+            }
+
+            /* Adjust font sizes */
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+
+            /* Tablet specific styles */
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-section {
+                width: 35%;
+            }
+
+            .products-grid {
+                width: 65%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+
+            /* Desktop specific styles */
+            .mobile-only {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+    <!-- Header/Navigation Bar -->
+    <header class="header bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center text-2xl font-bold text-green-600">
+                <i class="fas fa-tractor mr-2"></i>
+                <span>KrishiSetu</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="about.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i> About
+                </a>
+                <a href="services.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-cogs mr-2"></i> Services
+                </a>
+                <a href="blog.html" class="nav-link hover:text-green-600 transition-colors">
+                    <i class="fas fa-blog mr-2"></i> Blog
+                </a>
+                <a href="products.html" class="nav-link text-green-600 font-semibold">
+                    <i class="fas fa-seedling mr-2"></i> Products
+                </a>
+                <a href="contact.html" class="nav-link hover:text-green-600 font-medium">
+                    <i class="fas fa-envelope mr-2"></i> Contact
+                </a>
+                <div class="relative">
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span
+                            class="badge absolute bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </a>
+                </div>
+                <a href="login.html"
+                    class="bg-green-600 text-white px-4 py-2 rounded-full font-medium hover:bg-green-700 transition">
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Full Screen Mobile Menu -->
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-6 right-6 text-gray-600">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+            <a href="index.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-home mr-3"></i> Home
+            </a>
+            <a href="about.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-info-circle mr-3"></i> About
+            </a>
+            <a href="services.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-cogs mr-3"></i> Services
+            </a>
+            <a href="blog.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-blog mr-3"></i> Blog
+            </a>
+            <a href="products.html" class="mobile-nav-link text-green-600 font-semibold transition">
+                <i class="fas fa-seedling mr-3"></i> Products
+            </a>
+            <a href="contact.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-envelope mr-3"></i> Contact
+            </a>
+            <a href="login.html"
+                class="mt-8 bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition text-lg mobile-menu-item">
+                Get Started
+            </a>
+        </div>
+    </div>
+    </header>
+
+    <body>
+
+        <!-- Products Page Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16 relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute inset-0 -z-10 overflow-hidden">
+                <div
+                    class="absolute top-0 left-1/4 w-64 h-64 bg-green-100 rounded-full mix-blend-multiply filter blur-xl opacity-20">
+                </div>
+                <div
+                    class="absolute bottom-0 right-1/4 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-xl opacity-20">
+                </div>
+                <div
+                    class="absolute top-1/3 right-0 w-32 h-32 bg-green-50 rounded-full mix-blend-multiply filter blur-lg opacity-30">
+                </div>
+            </div>
+
+            <!-- Gradient overlay to soften background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-white/70 -z-10"></div>
+
+            <!-- Page Header -->
+            <div class="text-center mb-14 md:mb-16 relative">
+                <div class="mb-6">
+                    <span
+                        class="inline-block px-4 py-1.5 text-sm font-semibold text-green-800 bg-green-100/80 rounded-full mb-4 backdrop-blur-sm border border-green-200/50">
+                        🌱 Quality Farming Solutions
+                    </span>
+                    <h1
+                        class="text-4xl md:text-5xl font-bold text-gray-900 mb-5 leading-tight bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                        Premium Agricultural Products
+                    </h1>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-green-400 to-green-600 mx-auto mb-6 rounded-full">
+                    </div>
+                    <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                        Discover our curated selection of high-performance seeds, organic fertilizers,
+                        professional-grade tools, and innovative equipment for modern farming.
+                    </p>
+                </div>
+
+                <!-- Stats/Highlights -->
+                <div class="flex flex-wrap justify-center gap-6 mt-10">
+                    <div
+                        class="px-6 py-3 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <span class="block text-3xl font-bold text-green-600">500+</span>
+                        <span class="text-gray-600">Quality Products</span>
+                    </div>
+                    <div
+                        class="px-6 py-3 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <span class="block text-3xl font-bold text-green-600">100%</span>
+                        <span class="text-gray-600">Organic Certified</span>
+                    </div>
+                    <div
+                        class="px-6 py-3 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <span class="block text-3xl font-bold text-green-600">24/7</span>
+                        <span class="text-gray-600">Expert Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-2xl mx-auto mt-8 flex items-center gap-4 mb-8"> <!-- Added mb-8 for bottom margin -->
+            <!-- Search Bar -->
+            <div class="relative flex-grow">
+                <input type="text" placeholder="Search for products..."
+                    class="w-full px-4 py-3 border border-gray-300 rounded-full pl-12 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <i class="fas fa-search absolute left-4 top-3.5 text-gray-400"></i>
+            </div>
+
+            <!-- Mobile Filter Button -->
+            <button class="mobile-filter-btn md:hidden">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="mr-2">
+                    <path
+                        d="M6.66667 12H9.33333V10.6667H6.66667V12ZM2 4V5.33333H14V4H2ZM4 8.66667H12V7.33333H4V8.66667Z"
+                        fill="white" />
+                </svg>
+                Filters
+            </button>
+        </div>
+
+        <!-- Replace your current filter section with this -->
+        <div class="filter-backdrop" id="filterBackdrop"></div>
+
+        <div class="filter-overlay" id="filterOverlay">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Filters</h2>
+                <button id="closeFilterBtn" class="text-gray-500">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Categories</h2>
+                <div class="space-y-2">
+                    <button class="category-btn active w-full text-left px-4 py-2 rounded-lg">All
+                        Products</button>
+                    <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                        <i class="fas fa-seedling mr-2"></i> Seeds
+                    </button>
+                    <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                        <i class="fas fa-flask mr-2"></i> Fertilizers
+                    </button>
+                    <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                        <i class="fas fa-tools mr-2"></i> Tools & Equipment
+                    </button>
+                    <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                        <i class="fas fa-prescription-bottle mr-2"></i> Pesticides
+                    </button>
+                    <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                        <i class="fas fa-leaf mr-2"></i> Organic Products
+                    </button>
+                </div>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Price Range</h2>
+                <div class="space-y-4">
+                    <div>
+                        <input type="range" min="0" max="10000" value="5000" class="w-full">
+                        <div class="flex justify-between text-gray-600 mt-1">
+                            <span>₹0</span>
+                            <span>₹10,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Brands</h2>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="mobileBrand1" class="rounded text-green-600">
+                        <label for="mobileBrand1" class="ml-2 text-gray-700">KrishiGold</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="mobileBrand2" class="rounded text-green-600">
+                        <label for="mobileBrand2" class="ml-2 text-gray-700">AgroStar</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="mobileBrand3" class="rounded text-green-600">
+                        <label for="mobileBrand3" class="ml-2 text-gray-700">FarmFresh</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="mobileBrand4" class="rounded text-green-600">
+                        <label for="mobileBrand4" class="ml-2 text-gray-700">GreenHarvest</label>
+                    </div>
+                </div>
+
+                <button class="w-full bg-green-600 text-white py-2 rounded-lg mt-8 hover:bg-green-700 transition">
+                    Apply Filters
+                </button>
+            </div>
+        </div>
+
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Filters Sidebar -->
+            <div class="md:w-1/4 filter-section">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Categories</h2>
+                    <div class="space-y-2">
+                        <button class="category-btn active w-full text-left px-4 py-2 rounded-lg">All
+                            Products</button>
+                        <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                            <i class="fas fa-seedling mr-2"></i> Seeds
+                        </button>
+                        <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                            <i class="fas fa-flask mr-2"></i> Fertilizers
+                        </button>
+                        <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                            <i class="fas fa-tools mr-2"></i> Tools & Equipment
+                        </button>
+                        <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                            <i class="fas fa-prescription-bottle mr-2"></i> Pesticides
+                        </button>
+                        <button class="category-btn w-full text-left px-4 py-2 rounded-lg">
+                            <i class="fas fa-leaf mr-2"></i> Organic Products
+                        </button>
+                    </div>
+
+                    <h2 class="text-xl font-semibold mt-8 mb-4">Price Range</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <input type="range" min="0" max="10000" value="5000" class="w-full">
+                            <div class="flex justify-between text-gray-600 mt-1">
+                                <span>₹0</span>
+                                <span>₹10,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-xl font-semibold mt-8 mb-4">Brands</h2>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="brand1" class="rounded text-green-600">
+                            <label for="brand1" class="ml-2 text-gray-700">KrishiGold</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="brand2" class="rounded text-green-600">
+                            <label for="brand2" class="ml-2 text-gray-700">AgroStar</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="brand3" class="rounded text-green-600">
+                            <label for="brand3" class="ml-2 text-gray-700">FarmFresh</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="brand4" class="rounded text-green-600">
+                            <label for="brand4" class="ml-2 text-gray-700">GreenHarvest</label>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-green-600 text-white py-2 rounded-lg mt-8 hover:bg-green-700 transition">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="md:w-3/4">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-gray-600">Showing 12 of 48 products</p>
+                    <div>
+                        <label for="sort" class="mr-2 text-gray-700">Sort by:</label>
+                        <select id="sort"
+                            class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option>Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Best Rated</option>
+                            <option>Newest</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Hybrid Wheat Seeds</h3>
+                                    <p class="text-gray-600 text-sm">KrishiGold Premium</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Best
+                                    Seller</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(142)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹850 <span
+                                        class="text-gray-500 text-sm line-through">₹1,000</span></p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Organic Fertilizer</h3>
+                                    <p class="text-gray-600 text-sm">FarmFresh Natural</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">New</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(89)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹1,250</p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Hand Sprayer</h3>
+                                    <p class="text-gray-600 text-sm">AgroStar Tools</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(204)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹1,799</p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Rice Seeds</h3>
+                                    <p class="text-gray-600 text-sm">GreenHarvest Premium</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Best
+                                    Seller</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(167)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹720 <span
+                                        class="text-gray-500 text-sm line-through">₹900</span></p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Neem Pesticide</h3>
+                                    <p class="text-gray-600 text-sm">Organic Solutions</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(56)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹1,450</p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card bg-white">
+                        <div class="p-4">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48"></div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-lg">Garden Tool Set</h3>
+                                    <p class="text-gray-600 text-sm">FarmPro Essentials</p>
+                                </div>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Limited
+                                    Stock</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(112)</span>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <p class="text-xl font-bold">₹2,999 <span
+                                        class="text-gray-500 text-sm line-through">₹3,500</span></p>
+                                <button class="cart-btn bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-12 flex justify-center">
+                    <nav class="flex space-x-2">
+                        <a href="#"
+                            class="px-4 py-2 border rounded-lg text-green-600 border-green-600 font-medium">1</a>
+                        <a href="#" class="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-100">2</a>
+                        <a href="#" class="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-100">3</a>
+                        <a href="#" class="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-100">Next <i
+                                class="fas fa-chevron-right ml-1"></i></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="bg-green-50 py-12 mt-16">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-2xl font-bold mb-4">Stay Updated with KrishiSetu</h2>
+                <p class="text-gray-600 mb-6">Subscribe to our newsletter for farming tips, product updates, and
+                    special
+                    offers.</p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Your email address"
+                        class="flex-grow px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <button
+                        class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition">Subscribe</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-tractor text-2xl text-green-400"></i>
+                            <h3 class="text-xl font-bold ml-2">KrishiSetu</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4">Empowering farmers with technology for sustainable
+                            agriculture.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                            <li><a href="services.html" class="text-gray-400 hover:text-white">Services</a></li>
+                            <li><a href="products.html" class="text-gray-400 hover:text-white">Products</a></li>
+                            <li><a href="blog.html" class="text-gray-400 hover:text-white">Blog</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Our Products</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Seeds</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Fertilizers</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Tools & Equipment</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Pesticides</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Organic Products</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Irrigation Systems</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-3 text-green-400"></i>
+                                <span class="text-gray-400">123 Farm Road, Agricultural Zone, India</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-phone mt-1 mr-3 text-green-400"></i>
+                                <span class="text-gray-400">+91 9876543210</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-envelope mt-1 mr-3 text-green-400"></i>
+                                <span class="text-gray-400">info@krishisetu.com</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-clock mt-1 mr-3 text-green-400"></i>
+                                <span class="text-gray-400">Mon-Sat: 9:00 AM - 6:00 PM</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-400">
+                    <p>© 2025 KrishiSetu. All rights reserved. | Partnered with NABARD | Certified Agritech Platform
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+    <script>
+        // Filter overlay functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const openFilterBtn = document.getElementById('openFilterBtn');
+            const closeFilterBtn = document.getElementById('closeFilterBtn');
+            const filterOverlay = document.getElementById('filterOverlay');
+            const filterBackdrop = document.getElementById('filterBackdrop');
+
+            openFilterBtn.addEventListener('click', () => {
+                filterOverlay.classList.add('active');
+                filterBackdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeFilterBtn.addEventListener('click', () => {
+                filterOverlay.classList.remove('active');
+                filterBackdrop.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            filterBackdrop.addEventListener('click', () => {
+                filterOverlay.classList.remove('active');
+                filterBackdrop.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close mobile menu
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Redirect "Get Started" to login if no account exists (example logic)
+        function checkAuth() {
+            const isLoggedIn = false; // Replace with actual auth check
+            if (!isLoggedIn) {
+                window.location.href = "login.html";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</html>
