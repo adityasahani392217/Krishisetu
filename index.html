@@ -7,7 +7,7 @@
     <title>KrishiSetu - Empowering Farmers with Technology</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Poppins (more modern than Inter) -->
+    <!-- Google Fonts - Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- Font Awesome for icons -->
@@ -19,6 +19,33 @@
             scroll-behavior: smooth;
         }
 
+        /* Mobile Menu Styles */
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Navigation Link Styles */
         .nav-link {
             position: relative;
             padding: 8px 0;
@@ -32,7 +59,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #22c55e;
+            background-color: #16a34a;
             transition: width 0.3s ease;
         }
 
@@ -40,25 +67,11 @@
             width: 100%;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #4ade80;
-            border-radius: 4px;
-        }
-
-        /* Animation classes */
-        @keyframes fadeInUp {
+        /* Animation for menu items */
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -67,50 +80,43 @@
             }
         }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
+        .mobile-menu-item {
+            animation: fadeIn 0.3s ease-out forwards;
+            opacity: 0;
         }
 
-        .delay-100 {
+        /* Delays for each menu item */
+        .mobile-menu-item:nth-child(1) {
             animation-delay: 0.1s;
         }
 
-        .delay-200 {
+        .mobile-menu-item:nth-child(2) {
             animation-delay: 0.2s;
         }
 
-        .delay-300 {
+        .mobile-menu-item:nth-child(3) {
             animation-delay: 0.3s;
         }
 
-        /* Custom button style */
-        .btn-primary {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
-            transition: all 0.3s ease;
+        .mobile-menu-item:nth-child(4) {
+            animation-delay: 0.4s;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+        .mobile-menu-item:nth-child(5) {
+            animation-delay: 0.5s;
         }
 
-        /* Service card hover effect */
-        .service-card {
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
+        .mobile-menu-item:nth-child(6) {
+            animation-delay: 0.6s;
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-bottom-color: #4ade80;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        .mobile-menu-item:nth-child(7) {
+            animation-delay: 0.7s;
         }
     </style>
 </head>
 
 <body class="text-gray-800">
-
     <!-- Header/Navigation Bar -->
     <header class="header bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto flex justify-between items-center py-4 px-6">
@@ -122,22 +128,22 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 items-center">
-                <a href="index.html" class="nav-link">
+                <a href="index.html" class="nav-link text-green-600 transition-colors">
                     <i class="fas fa-home mr-2"></i> Home
                 </a>
-                <a href="about.html" class="nav-link">
+                <a href="about.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-info-circle mr-2"></i> About
                 </a>
-                <a href="services.html" class="nav-link">
+                <a href="services.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-cogs mr-2"></i> Services
                 </a>
-                <a href="blog.html" class="nav-link">
+                <a href="blog.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-blog mr-2"></i> Blog
                 </a>
-                <a href="products.html" class="nav-link text-green-600 font-semibold">
+                <a href="products.html" class="nav-link hover:text-green-600 font-semibold">
                     <i class="fas fa-seedling mr-2"></i> Products
                 </a>
-                <a href="contact.html" class="nav-link">
+                <a href="contact.html" class="nav-link hover:text-green-600 font-medium">
                     <i class="fas fa-envelope mr-2"></i> Contact
                 </a>
                 <a href="login.html"
@@ -151,32 +157,39 @@
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </nav>
+    </header>
 
-        <!-- Mobile Menu (Hidden) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-6 border-t">
-            <a href="index.html" class="mobile-nav-link">
-                <i class="fas fa-home mr-2"></i> Home
+    <!-- Full Screen Mobile Menu -->
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-6 right-6 text-gray-600">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+            <a href="index.html" class="mobile-nav-link text-green-600 transition mobile-menu-item">
+                <i class="fas fa-home mr-3"></i> Home
             </a>
-            <a href="about.html" class="mobile-nav-link">
-                <i class="fas fa-info-circle mr-2"></i> About
+            <a href="about.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-info-circle mr-3"></i> About
             </a>
-            <a href="services.html" class="mobile-nav-link">
-                <i class="fas fa-cogs mr-2"></i> Services
+            <a href="services.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-cogs mr-3"></i> Services
             </a>
-            <a href="blog.html" class="mobile-nav-link">
-                <i class="fas fa-blog mr-2"></i> Blog
+            <a href="blog.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-blog mr-3"></i> Blog
             </a>
-            <a href="products.html" class="nav-link text-green-600 font-semibold">
-                <i class="fas fa-seedling mr-2"></i> Products
+            <a href="products.html" class="mobile-nav-link hover:text-green-600 font-semibold transition">
+                <i class="fas fa-seedling mr-3"></i> Products
             </a>
-            <a href="contact.html" class="mobile-nav-link">
-                <i class="fas fa-envelope mr-2"></i> Contact
+            <a href="contact.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-envelope mr-3"></i> Contact
             </a>
             <a href="login.html"
-                class="block mt-4 bg-green-600 text-white text-center py-2 rounded-full font-medium hover:bg-green-700 transition">
+                class="mt-8 bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition text-lg mobile-menu-item">
                 Get Started
             </a>
         </div>
+    </div>
     </header>
 
     <main>
@@ -259,7 +272,8 @@
             <div class="container mx-auto px-6 md:px-12">
                 <div class="text-center mb-16">
                     <span class="text-green-600 font-semibold">ABOUT US</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Bridging Technology and Agriculture</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Bridging Technology and Agriculture
+                    </h2>
                     <div class="w-20 h-1 bg-green-500 mx-auto"></div>
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-12">
@@ -270,9 +284,12 @@
                     <div class="md:w-1/2">
                         <h3 class="text-2xl font-bold mb-4 text-gray-800">Our Mission</h3>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            KrishiSetu is revolutionizing Indian agriculture by making cutting-edge farming technology
-                            accessible and affordable for small and marginal farmers. We address key challenges like
-                            equipment costs, market access, and sustainable practices through innovative solutions.
+                            KrishiSetu is revolutionizing Indian agriculture by making cutting-edge farming
+                            technology
+                            accessible and affordable for small and marginal farmers. We address key challenges
+                            like
+                            equipment costs, market access, and sustainable practices through innovative
+                            solutions.
                         </p>
                         <div class="space-y-4">
                             <div class="flex items-start">
@@ -281,7 +298,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Smart Solutions</h4>
-                                    <p class="text-gray-600 text-sm">Equipment sharing, data-driven insights, and waste
+                                    <p class="text-gray-600 text-sm">Equipment sharing, data-driven insights,
+                                        and waste
                                         recycling programs</p>
                                 </div>
                             </div>
@@ -301,7 +319,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Community Focus</h4>
-                                    <p class="text-gray-600 text-sm">Strengthening FPOs and farmer collectives</p>
+                                    <p class="text-gray-600 text-sm">Strengthening FPOs and farmer collectives
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -320,7 +339,8 @@
                 <div class="text-center mb-16">
                     <span class="text-green-600 font-semibold">OUR SERVICES</span>
                     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Farmer-Centric Solutions</h2>
-                    <p class="max-w-2xl mx-auto text-gray-600">Practical services designed to address real challenges
+                    <p class="max-w-2xl mx-auto text-gray-600">Practical services designed to address real
+                        challenges
                         faced by Indian farmers</p>
                     <div class="w-20 h-1 bg-green-500 mx-auto mt-4"></div>
                 </div>
@@ -362,7 +382,8 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Direct Market Access</h3>
                         <p class="text-gray-600 mb-4">
-                            Connect directly with buyers, get fair prices, and reduce dependency on middlemen through
+                            Connect directly with buyers, get fair prices, and reduce dependency on middlemen
+                            through
                             our farmer collective.
                         </p>
                         <ul class="space-y-2 mb-6">
@@ -392,7 +413,8 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Waste to Wealth</h3>
                         <p class="text-gray-600 mb-4">
-                            Convert agricultural waste into valuable compost and other products to generate additional
+                            Convert agricultural waste into valuable compost and other products to generate
+                            additional
                             income streams.
                         </p>
                         <ul class="space-y-2 mb-6">
@@ -422,7 +444,8 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Smart Farming</h3>
                         <p class="text-gray-600 mb-4">
-                            Get data-driven insights on soil health, weather patterns, and optimal farming practices for
+                            Get data-driven insights on soil health, weather patterns, and optimal farming
+                            practices for
                             your region.
                         </p>
                         <ul class="space-y-2 mb-6">
@@ -452,7 +475,8 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Financial Support</h3>
                         <p class="text-gray-600 mb-4">
-                            Access to credit facilities, insurance products, and financial literacy programs tailored
+                            Access to credit facilities, insurance products, and financial literacy programs
+                            tailored
                             for farmers.
                         </p>
                         <ul class="space-y-2 mb-6">
@@ -528,7 +552,8 @@
                             </div>
                         </div>
                         <p class="text-gray-600 italic mb-4">
-                            "KrishiSetu's equipment sharing service helped me afford a tractor for my small farm. I
+                            "KrishiSetu's equipment sharing service helped me afford a tractor for my small
+                            farm. I
                             increased my yield by 40% and paid only for the hours I used."
                         </p>
                         <div class="text-yellow-400">
@@ -551,7 +576,8 @@
                             </div>
                         </div>
                         <p class="text-gray-600 italic mb-4">
-                            "Through KrishiSetu's market linkage, I now sell directly to restaurants in Patna. My income
+                            "Through KrishiSetu's market linkage, I now sell directly to restaurants in Patna.
+                            My income
                             doubled and I got fair prices for my organic produce."
                         </p>
                         <div class="text-yellow-400">
@@ -574,7 +600,8 @@
                             </div>
                         </div>
                         <p class="text-gray-600 italic mb-4">
-                            "Our FPO became stronger with KrishiSetu's support. We now purchase inputs in bulk and sell
+                            "Our FPO became stronger with KrishiSetu's support. We now purchase inputs in bulk
+                            and sell
                             collectively, increasing profits for all 200 members."
                         </p>
                         <div class="text-yellow-400">
@@ -595,7 +622,8 @@
                 <div class="text-center mb-16">
                     <span class="text-green-600 font-semibold">SIMPLE STEPS</span>
                     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">How KrishiSetu Works</h2>
-                    <p class="max-w-2xl mx-auto text-gray-600">Get started with our services in just a few easy steps
+                    <p class="max-w-2xl mx-auto text-gray-600">Get started with our services in just a few easy
+                        steps
                     </p>
                     <div class="w-20 h-1 bg-green-500 mx-auto mt-4"></div>
                 </div>
@@ -643,7 +671,8 @@
                 <div class="text-center mb-16">
                     <span class="text-green-600 font-semibold">GET IN TOUCH</span>
                     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">We're Here to Help</h2>
-                    <p class="max-w-2xl mx-auto text-gray-600">Have questions or ready to join? Contact our team today
+                    <p class="max-w-2xl mx-auto text-gray-600">Have questions or ready to join? Contact our team
+                        today
                     </p>
                     <div class="w-20 h-1 bg-green-500 mx-auto mt-4"></div>
                 </div>
@@ -671,7 +700,8 @@
                                         placeholder="Enter your location">
                                 </div>
                                 <div>
-                                    <label for="service" class="block text-gray-700 mb-2">Service Interested In</label>
+                                    <label for="service" class="block text-gray-700 mb-2">Service Interested
+                                        In</label>
                                     <select id="service" name="service"
                                         class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent">
                                         <option value="">Select a service</option>
@@ -784,7 +814,8 @@
                         <span>KrishiSetu</span>
                     </div>
                     <p class="text-gray-400 mb-6">
-                        Empowering Indian farmers with technology, knowledge and market access for sustainable
+                        Empowering Indian farmers with technology, knowledge and market access for
+                        sustainable
                         agriculture.
                     </p>
                     <div class="flex space-x-4">
@@ -812,11 +843,13 @@
                         <li><a href="about.html" class="text-gray-400 hover:text-green-500 transition-colors">About
                                 Us</a></li>
                         <li><a href="services.html"
-                                class="text-gray-400 hover:text-green-500 transition-colors">Services</a></li>
+                                class="text-gray-400 hover:text-green-500 transition-colors">Services</a>
+                        </li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-green-500 transition-colors">Blog</a>
                         </li>
                         <li><a href="contact.html"
-                                class="text-gray-400 hover:text-green-500 transition-colors">Contact</a></li>
+                                class="text-gray-400 hover:text-green-500 transition-colors">Contact</a>
+                        </li>
                         <li><a href="faq.html" class="text-gray-400 hover:text-green-500 transition-colors">FAQs</a>
                         </li>
                     </ul>
@@ -826,13 +859,16 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6">Our Services</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Market Prices</a>
+                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Market
+                                Prices</a>
                         </li>
                         <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Weather
                                 Forecast</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Expert Advice</a>
+                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Expert
+                                Advice</a>
                         </li>
-                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">FPO Support</a>
+                        <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">FPO
+                                Support</a>
                         </li>
                         <li><a href="#" class="text-gray-400 hover:text-green-500 transition-colors">Government
                                 Schemes</a></li>
@@ -883,12 +919,40 @@
         class="fixed bottom-6 right-6 bg-green-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-green-700">
         <i class="fas fa-arrow-up"></i>
     </button>
+    
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close mobile menu
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         });
 
         // Redirect "Get Started" to login if no account exists (example logic)
@@ -898,13 +962,6 @@
                 window.location.href = "login.html";
             }
         }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && e.target !== mobileMenuButton) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
 
         // Back to top button
         const backToTopButton = document.getElementById('back-to-top');
@@ -935,6 +992,8 @@
                 contactForm.reset();
             });
         }
+
+
     </script>
 </body>
 

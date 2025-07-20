@@ -7,7 +7,7 @@
     <title>KrishiSetu - Empowering Farmers with Technology</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Poppins (more modern than Inter) -->
+    <!-- Google Fonts - Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <!-- Font Awesome for icons -->
@@ -19,6 +19,33 @@
             scroll-behavior: smooth;
         }
 
+        /* Mobile Menu Styles */
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Navigation Link Styles */
         .nav-link {
             position: relative;
             padding: 8px 0;
@@ -32,7 +59,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #22c55e;
+            background-color: #000000;
             transition: width 0.3s ease;
         }
 
@@ -40,25 +67,11 @@
             width: 100%;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #4ade80;
-            border-radius: 4px;
-        }
-
-        /* Animation classes */
-        @keyframes fadeInUp {
+        /* Animation for menu items */
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -67,50 +80,43 @@
             }
         }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
+        .mobile-menu-item {
+            animation: fadeIn 0.3s ease-out forwards;
+            opacity: 0;
         }
 
-        .delay-100 {
+        /* Delays for each menu item */
+        .mobile-menu-item:nth-child(1) {
             animation-delay: 0.1s;
         }
 
-        .delay-200 {
+        .mobile-menu-item:nth-child(2) {
             animation-delay: 0.2s;
         }
 
-        .delay-300 {
+        .mobile-menu-item:nth-child(3) {
             animation-delay: 0.3s;
         }
 
-        /* Custom button style */
-        .btn-primary {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
-            transition: all 0.3s ease;
+        .mobile-menu-item:nth-child(4) {
+            animation-delay: 0.4s;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+        .mobile-menu-item:nth-child(5) {
+            animation-delay: 0.5s;
         }
 
-        /* Service card hover effect */
-        .service-card {
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
+        .mobile-menu-item:nth-child(6) {
+            animation-delay: 0.6s;
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-bottom-color: #4ade80;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        .mobile-menu-item:nth-child(7) {
+            animation-delay: 0.7s;
         }
     </style>
 </head>
 
 <body class="text-gray-800">
-
     <!-- Header/Navigation Bar -->
     <header class="header bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto flex justify-between items-center py-4 px-6">
@@ -122,22 +128,22 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 items-center">
-                <a href="index.html" class="nav-link">
+                <a href="index.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-home mr-2"></i> Home
                 </a>
-                <a href="about.html" class="nav-link">
+                <a href="about.html" class="nav-link text-green-600 transition-colors">
                     <i class="fas fa-info-circle mr-2"></i> About
                 </a>
-                <a href="services.html" class="nav-link">
+                <a href="services.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-cogs mr-2"></i> Services
                 </a>
-                <a href="blog.html" class="nav-link">
+                <a href="blog.html" class="nav-link hover:text-green-600 transition-colors">
                     <i class="fas fa-blog mr-2"></i> Blog
                 </a>
-                <a href="products.html" class="nav-link text-green-600 font-semibold">
+                <a href="products.html" class="nav-link hover:text-green-600 font-semibold">
                     <i class="fas fa-seedling mr-2"></i> Products
                 </a>
-                <a href="contact.html" class="nav-link">
+                <a href="contact.html" class="nav-link hover:text-green-600 font-medium">
                     <i class="fas fa-envelope mr-2"></i> Contact
                 </a>
                 <a href="login.html"
@@ -151,34 +157,40 @@
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </nav>
+    </header>
 
-        <!-- Mobile Menu (Hidden) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-6 border-t">
-            <a href="index.html" class="mobile-nav-link">
-                <i class="fas fa-home mr-2"></i> Home
+    <!-- Full Screen Mobile Menu -->
+    <div id="mobile-menu">
+        <button id="close-menu-button" class="absolute top-6 right-6 text-gray-600">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+
+        <div class="flex flex-col items-center space-y-6 w-full px-4">
+            <a href="index.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-home mr-3"></i> Home
             </a>
-            <a href="about.html" class="mobile-nav-link">
-                <i class="fas fa-info-circle mr-2"></i> About
+            <a href="about.html" class="mobile-nav-link text-green-600 transition mobile-menu-item">
+                <i class="fas fa-info-circle mr-3"></i> About
             </a>
-            <a href="services.html" class="mobile-nav-link">
-                <i class="fas fa-cogs mr-2"></i> Services
+            <a href="services.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-cogs mr-3"></i> Services
             </a>
-            <a href="blog.html" class="mobile-nav-link">
-                <i class="fas fa-blog mr-2"></i> Blog
+            <a href="blog.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-blog mr-3"></i> Blog
             </a>
-            <a href="products.html" class="nav-link text-green-600 font-semibold">
-                <i class="fas fa-seedling mr-2"></i> Products
+            <a href="products.html" class="mobile-nav-link hover:text-green-600 font-semibold transition">
+                <i class="fas fa-seedling mr-3"></i> Products
             </a>
-            <a href="contact.html" class="mobile-nav-link">
-                <i class="fas fa-envelope mr-2"></i> Contact
+            <a href="contact.html" class="mobile-nav-link hover:text-green-600 transition mobile-menu-item">
+                <i class="fas fa-envelope mr-3"></i> Contact
             </a>
             <a href="login.html"
-                class="block mt-4 bg-green-600 text-white text-center py-2 rounded-full font-medium hover:bg-green-700 transition">
+                class="mt-8 bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition text-lg mobile-menu-item">
                 Get Started
             </a>
         </div>
+    </div>
     </header>
-
 
     <!-- Hero Section - Improved -->
     <section class="hero-section relative py-24 md:py-32 bg-gradient-to-r from-green-50 to-green-100 overflow-hidden">
@@ -893,11 +905,67 @@
     </button>
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
+
+        // Close mobile menu
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Redirect "Get Started" to login if no account exists (example logic)
+        function checkAuth() {
+            const isLoggedIn = false; // Replace with actual auth check
+            if (!isLoggedIn) {
+                window.location.href = "login.html";
+            }
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Animation for impact stats
         document.querySelectorAll('.stat-card').forEach((card, index) => {
             card.style.animationDelay = `${index * 0.1}s`;
