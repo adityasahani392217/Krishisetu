@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiSetu - Authentication</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#22c55e',
+            secondary: '#15803d',
+            dark: '#0f172a',
+            light: '#f8fafc'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fafc;
+    }
+    
+    .auth-container {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+    
+    .auth-tab {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .auth-tab.active {
+      background-color: #22c55e;
+      color: white;
+    }
+    
+    .auth-tab:not(.active):hover {
+      background-color: #dcfce7;
+    }
+    
+    .input-with-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .input-with-icon:focus-within {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+    
+    .role-card {
+      transition: all 0.3s ease;
+      border: 2px solid #e5e7eb;
+    }
+    
+    .role-card:hover, .role-card.selected {
+      border-color: #22c55e;
+      background-color: #f0fdf4;
+      transform: translateY(-5px);
+    }
+    
+    .role-card.selected .checkmark {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background-color: #22c55e;
+      transition: width 0.5s ease;
+    }
+    
+    .floating-label {
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    
+    input:focus + .floating-label,
+    input:not(:placeholder-shown) + .floating-label {
+      transform: translateY(-140%);
+      font-size: 0.75rem;
+      color: #22c55e;
+    }
+    
+    .animate-in {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+  <!-- Main Authentication Container -->
+  <div class="w-full max-w-4xl bg-white auth-container">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-green-600 to-green-800 p-6 text-center">
+      <a href="index.html" class="absolute top-6 left-6 text-white text-xl">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="flex justify-center mb-4">
+        <i class="fas fa-tractor text-4xl text-white"></i>
+        <h1 class="text-3xl font-bold text-white ml-3">KrishiSetu</h1>
+      </div>
+      <p class="text-green-100 max-w-md mx-auto">Empowering farmers with technology for sustainable agriculture</p>
+    </div>
+    
+    <!-- Tabs for Login/Signup -->
+    <div class="flex border-b">
+      <div id="loginTab" class="auth-tab active flex-1 text-center py-4 font-semibold">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </div>
+      <div id="signupTab" class="auth-tab flex-1 text-center py-4 font-semibold">
+        <i class="fas fa-user-plus mr-2"></i> Sign Up
+      </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="px-8 pt-6">
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill w-1/3"></div>
+      </div>
+    </div>
+    
+    <!-- Content Area -->
+    <div class="p-6 md:p-10">
+      <!-- Login Form (Initially Visible) -->
+      <div id="loginForm" class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back to KrishiSetu</h2>
+          <p class="text-gray-600">Access your farming dashboard and services</p>
+        </div>
+        
+        <!-- Role Selection -->
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-3 font-medium">I am a:</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-user text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Farmer</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-store text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Buyer</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-industry text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Supplier</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-landmark text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Government</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Login Options -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Email Login -->
+          <div class="space-y-6">
+            <h3 class="font-semibold text-gray-700 border-b pb-2">Login with Email</h3>
+            
+            <div class="relative input-with-icon border rounded-lg">
+              <input type="email" class="w-full pl-10 pr-4 py-3 focus:outline-none rounded-lg" 
+                     placeholder="your@email.com" required>
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-envelope text-gray-400"></i>
+              </div>
+            </div>
+
+            <div class="relative input-with-icon border rounded-lg">
+              <input type="password" class="w-full pl-10 pr-4 py-3 focus:outline-none rounded-lg" 
+                     placeholder="••••••••" required>
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-lock text-gray-400"></i>
+              </div>
+              <a href="#" class="absolute right-3 top-3 text-green-600 hover:text-green-800">
+                <i class="fas fa-eye"></i>
+              </a>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <label class="flex items-center">
+                <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-2">
+                <span class="text-gray-700">Remember me</span>
+              </label>
+              <a href="#" class="text-sm text-green-600 hover:underline">Forgot password?</a>
+            </div>
+            
+            <button class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
+              <i class="fas fa-sign-in-alt mr-2"></i> Login
+            </button>
+          </div>
+          
+          <!-- OTP Login -->
+          <div class="space-y-6">
+            <h3 class="font-semibold text-gray-700 border-b pb-2">Login with OTP</h3>
+            
+            <div class="relative input-with-icon border rounded-lg">
+              <input type="tel" class="w-full pl-10 pr-4 py-3 focus:outline-none rounded-lg" 
+                     placeholder="+91 9876543210" required>
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-mobile-alt text-gray-400"></i>
+              </div>
+            </div>
+            
+            <div id="otpSection" class="hidden">
+              <div class="grid grid-cols-6 gap-2 mb-4">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <input type="text" maxlength="1" class="w-full h-12 text-center text-xl border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+              </div>
+              
+              <div class="text-center text-gray-600 mb-4">
+                <span id="otpTimer" class="font-medium">02:00</span>
+              </div>
+            </div>
+            
+            <button id="otpButton" class="w-full bg-green-100 text-green-800 py-3 rounded-lg font-bold hover:bg-green-200 transition">
+              <i class="fas fa-mobile-alt mr-2"></i> Send OTP
+            </button>
+            
+            <div class="text-center text-gray-600 my-4">
+              <span class="bg-white px-2 relative z-10">OR</span>
+              <div class="h-px bg-gray-300 -mt-3"></div>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+              <button class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition">
+                <i class="fab fa-google"></i>
+              </button>
+              <button class="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-900 transition">
+                <i class="fab fa-apple"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center pt-6">
+          <p class="text-gray-600">
+            New to KrishiSetu? 
+            <a href="#" id="switchToSignup" class="text-green-600 font-medium hover:underline">Create an account</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Signup Form (Initially Hidden) -->
+      <div id="signupForm" class="space-y-6 hidden">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Join KrishiSetu Community</h2>
+          <p class="text-gray-600">Create your account to access farming solutions</p>
+        </div>
+        
+        <!-- Role Selection -->
+        <div class="mb-6">
+          <label class="block text-gray-700 mb-3 font-medium">I am a:</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-user text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Farmer</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-store text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Buyer</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-industry text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Supplier</p>
+            </div>
+            
+            <div class="role-card rounded-lg p-4 text-center cursor-pointer">
+              <div class="flex justify-center">
+                <i class="fas fa-landmark text-3xl text-green-600"></i>
+                <div class="checkmark absolute top-2 right-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 transform scale-0 transition">
+                  <i class="fas fa-check text-xs"></i>
+                </div>
+              </div>
+              <p class="mt-2 font-medium">Government</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Signup Form Fields -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="relative">
+            <input type="text" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                   placeholder="John Doe" required>
+            <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Full Name</label>
+          </div>
+          
+          <div class="relative">
+            <input type="email" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                   placeholder="your@email.com" required>
+            <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Email Address</label>
+          </div>
+          
+          <div class="relative">
+            <input type="tel" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                   placeholder="+91 9876543210" required>
+            <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Phone Number</label>
+          </div>
+          
+          <div class="relative">
+            <input type="password" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                   placeholder="••••••••" required>
+            <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Password</label>
+            <a href="#" class="absolute right-3 top-3 text-green-600 hover:text-green-800">
+              <i class="fas fa-eye"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Additional Fields for Farmers -->
+        <div id="farmerFields" class="hidden space-y-6 animate-in">
+          <h3 class="font-semibold text-gray-700 border-b pb-2">Farming Details</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative">
+              <select class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <option value="">Select State</option>
+                <option>Uttar Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Punjab</option>
+                <option>Gujarat</option>
+              </select>
+              <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">State</label>
+            </div>
+            
+            <div class="relative">
+              <select class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                <option value="">Select District</option>
+                <option>Lucknow</option>
+                <option>Pune</option>
+                <option>Amritsar</option>
+                <option>Ahmedabad</option>
+              </select>
+              <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">District</label>
+            </div>
+            
+            <div class="relative">
+              <input type="text" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                     placeholder="Wheat, Rice, etc.">
+              <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Main Crops</label>
+            </div>
+            
+            <div class="relative">
+              <input type="text" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                     placeholder="In acres">
+              <label class="floating-label absolute left-4 top-3.5 text-gray-500 bg-white px-1">Land Size</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Terms and Conditions -->
+        <div class="flex items-center">
+          <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mr-2" required>
+          <span class="text-gray-700">I agree to the <a href="#" class="text-green-600 hover:underline">Terms</a> and <a href="#" class="text-green-600 hover:underline">Privacy Policy</a></span>
+        </div>
+        
+        <button class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
+          <i class="fas fa-user-plus mr-2"></i> Create Account
+        </button>
+        
+        <div class="text-center pt-6">
+          <p class="text-gray-600">
+            Already have an account? 
+            <a href="#" id="switchToLogin" class="text-green-600 font-medium hover:underline">Log in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="bg-gray-50 p-6 text-center text-gray-600 text-sm">
+      <p>© 2025 KrishiSetu. Empowering farmers across India.</p>
+      <p class="mt-1">Partnered with NABARD | Certified Agritech Platform</p>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Tab switching functionality
+      const loginTab = document.getElementById('loginTab');
+      const signupTab = document.getElementById('signupTab');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const progressFill = document.getElementById('progressFill');
+      const switchToSignup = document.getElementById('switchToSignup');
+      const switchToLogin = document.getElementById('switchToLogin');
+      
+      // Role selection
+      const roleCards = document.querySelectorAll('.role-card');
+      const farmerFields = document.getElementById('farmerFields');
+      
+      // OTP functionality
+      const otpButton = document.getElementById('otpButton');
+      const otpSection = document.getElementById('otpSection');
+      const otpTimer = document.getElementById('otpTimer');
+      
+      // Initialize role selection
+      roleCards[0].classList.add('selected');
+      
+      // Tab switching
+      loginTab.addEventListener('click', () => {
+        loginTab.classList.add('active');
+        signupTab.classList.remove('active');
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        progressFill.style.width = '33%';
+      });
+      
+      signupTab.addEventListener('click', () => {
+        signupTab.classList.add('active');
+        loginTab.classList.remove('active');
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+        progressFill.style.width = '66%';
+      });
+      
+      switchToSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupTab.click();
+      });
+      
+      switchToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginTab.click();
+      });
+      
+      // Role selection functionality
+      roleCards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Remove selected class from all cards
+          roleCards.forEach(c => c.classList.remove('selected'));
+          
+          // Add selected class to clicked card
+          card.classList.add('selected');
+          
+          // Show/hide farmer fields
+          if (card.querySelector('p').textContent === 'Farmer') {
+            farmerFields.classList.remove('hidden');
+          } else {
+            farmerFields.classList.add('hidden');
+          }
+        });
+      });
+      
+      // OTP functionality
+      let timerInterval;
+      
+      otpButton.addEventListener('click', () => {
+        if (otpSection.classList.contains('hidden')) {
+          // Show OTP fields
+          otpSection.classList.remove('hidden');
+          otpButton.textContent = 'Verify OTP';
+          
+          // Start 2-minute timer
+          let timeLeft = 120;
+          otpTimer.textContent = '02:00';
+          
+          timerInterval = setInterval(() => {
+            timeLeft--;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            otpTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval);
+              otpButton.textContent = 'Resend OTP';
+              otpSection.classList.add('hidden');
+            }
+          }, 1000);
+        } else {
+          // Verify OTP (in a real app, this would validate the OTP)
+          alert('OTP verified! Logging you in...');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        }
+      });
+      
+      // Auto-tab OTP inputs
+      const otpInputs = document.querySelectorAll('#otpSection input');
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+          if (input.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+        });
+        
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && input.value === '' && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+        });
+      });
+      
+      // Password visibility toggle
+      const passwordToggles = document.querySelectorAll('.fa-eye');
+      passwordToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const input = toggle.closest('.relative').querySelector('input');
+          
+          if (input.type === 'password') {
+            input.type = 'text';
+            toggle.classList.replace('fa-eye', 'fa-eye-slash');
+          } else {
+            input.type = 'password';
+            toggle.classList.replace('fa-eye-slash', 'fa-eye');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
